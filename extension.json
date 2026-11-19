@@ -1,9 +1,9 @@
 {
   "id": "quick-reply",
   "name": "Quick Reply",
-  "description": "One-click reply chips (OK, Yes, Approved, Go, gg, Explain) above the composer, for when the agent asks a question and the answer is a single word. Only the first chip shows; the others open to its left on hover. Misclick protection: a click guard and a send delay (hold or click to fill). Optional action log.",
-  "version": "0.5.0",
-  "author": "Piotr-Vasiuchonak-EPAM",
+  "description": "Reply chips above the composer. Only the first chip (OK) is visible; the others open to its left on hover. Misclick protection, each a setting: arming guard, hold to send (red fill), undo window. Pure JS, no sidecar.",
+  "version": "0.5.1",
+  "author": "peter",
   "assets": {
     "scripts": [
       "assets/quick-reply.js"
@@ -21,12 +21,7 @@
     "native_host_start_required": false,
     "native_host_autostart": "none"
   },
-  "screenshots": [
-    "screenshots/01-ok-chip.png",
-    "screenshots/02-chips-open.png",
-    "screenshots/03-click-fill.png",
-    "screenshots/04-settings.png"
-  ],
+  "screenshots": [],
   "permissions": {
     "webui_api": {
       "read": [],
@@ -137,7 +132,5 @@
       "description": "1-168 hours. Older entries are deleted.",
       "default": 24
     }
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/Piotr-Vasiuchonak-EPAM/hermes-webui-extention-quick-reply"
+  ]
 }

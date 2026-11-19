@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.1
+
+- README: visible note that the extension makes no model calls and no outbound requests, with a grep check.
+- No code change.
+
 ## 0.5.0
 
 - Settings box in 4 lines. Each option name has a hover text. **Show log** button replaces Configure.
