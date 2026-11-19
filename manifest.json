@@ -1,0 +1,126 @@
+{
+  "extensions": [
+    {
+      "id": "quick-reply",
+      "name": "Quick Reply",
+      "description": "One-click reply chips (OK, Yes, Approved, Go, gg, Explain) above the composer, for when the agent asks a question and the answer is a single word. Only the first chip shows; the others open to its left on hover. Misclick protection: a click guard and a send delay (hold or click to fill). Optional action log.",
+      "scripts": [
+        "assets/quick-reply.js"
+      ],
+      "stylesheets": [
+        "assets/quick-reply.css"
+      ],
+      "permissions": {
+        "webui_api": {
+          "read": [],
+          "write": []
+        },
+        "webui_navigation": false,
+        "dom": {
+          "owned": true,
+          "mutates_core_views": false
+        },
+        "storage": {
+          "owned": true,
+          "shared_webui_keys": []
+        },
+        "loopback_sidecar": false,
+        "native_host": false,
+        "filesystem": {
+          "arbitrary": false,
+          "serves_bundled_assets": true
+        },
+        "network_external": false
+      },
+      "settings_schema": [
+        {
+          "key": "labels",
+          "type": "string",
+          "label": "Chips",
+          "description": "Comma separated list, 8 chips at most. The first chip is always visible. The others open to its left, in list order, nearest to the first chip first.",
+          "default": "OK,Yes,Approved,Go,gg,Explain"
+        },
+        {
+          "key": "guard",
+          "type": "boolean",
+          "label": "Click guard",
+          "description": "Ignore presses right after a new reply appears and while the chip group opens.",
+          "default": true
+        },
+        {
+          "key": "guard_ms",
+          "type": "integer",
+          "label": "Guard time (ms)",
+          "description": "0-3000. How long presses are ignored after a new reply appears.",
+          "default": 600
+        },
+        {
+          "key": "delay_mode",
+          "type": "enum",
+          "label": "Send delay",
+          "description": "The chip fills before it sends. Hold: press and hold until full; early release or leaving the chip cancels. Click: a click starts the fill; a second click or Esc cancels. Off: the first click sends.",
+          "default": "hold",
+          "options": [
+            {
+              "value": "hold",
+              "label": "Hold"
+            },
+            {
+              "value": "click",
+              "label": "Click to start"
+            },
+            {
+              "value": "off",
+              "label": "Off"
+            }
+          ]
+        },
+        {
+          "key": "delay_hold_ms",
+          "type": "integer",
+          "label": "Hold time (ms)",
+          "description": "300-5000. Fill time in mode Hold.",
+          "default": 1000
+        },
+        {
+          "key": "delay_click_ms",
+          "type": "integer",
+          "label": "Click time (ms)",
+          "description": "500-10000. Fill time in mode Click to start.",
+          "default": 2000
+        },
+        {
+          "key": "delay_scope",
+          "type": "enum",
+          "label": "Applies to",
+          "description": "Which chips use the send delay. Extra chips = all except the first one.",
+          "default": "all",
+          "options": [
+            {
+              "value": "all",
+              "label": "All chips"
+            },
+            {
+              "value": "extra",
+              "label": "Extra chips only"
+            }
+          ]
+        },
+        {
+          "key": "log",
+          "type": "boolean",
+          "label": "Log actions",
+          "description": "Record press, hold, cancel, send, blocked and mode change. Chip labels and times only, no chat text. View with Show log.",
+          "default": false
+        },
+        {
+          "key": "log_hours",
+          "type": "integer",
+          "label": "Keep (h)",
+          "description": "1-168 hours. Older entries are deleted.",
+          "default": 24
+        }
+      ]
+    }
+  ]
+}

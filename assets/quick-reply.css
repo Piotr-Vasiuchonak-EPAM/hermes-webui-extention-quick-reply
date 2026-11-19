@@ -1,0 +1,61 @@
+/* Chips sit on the top edge of the prompt box, at the right. All fills are solid (no alpha). */
+/* padding:10px = hover margin; offsets cancel it so OK keeps its place */
+#qrBar{position:absolute;right:4px;top:-27px;z-index:5;display:flex;gap:8px;align-items:center;margin:0;padding:10px;}
+#qrBar .qr-extra{display:none;gap:8px;align-items:center;}
+#qrBar:hover .qr-extra,#qrBar:focus-within .qr-extra,#qrBar.qr-pending .qr-extra{display:flex;animation:qrIn .12s ease-out;}
+@keyframes qrIn{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
+#qrBar[hidden]{display:none;}
+#qrBar button{font:inherit;font-size:12px;line-height:1;padding:7px 14px;border-radius:8px;cursor:pointer;
+  color:var(--text,#ddd);
+  background:var(--surface,#1e1e1e);
+  border:1px solid var(--border,#555);
+  box-shadow:0 2px 5px rgba(0,0,0,.4);
+  transition:transform .08s,box-shadow .08s,background-color .08s,border-color .08s;}
+#qrBar button:hover{
+  background:color-mix(in srgb,var(--surface,#1e1e1e) 82%,var(--text,#fff) 18%);
+  border-color:color-mix(in srgb,var(--border,#555) 55%,var(--text,#fff) 45%);
+  transform:translateY(-1px);box-shadow:0 4px 8px rgba(0,0,0,.5);}
+#qrBar button:active{transform:translateY(0);box-shadow:0 1px 3px rgba(0,0,0,.5);}
+/* OK: only a hint of accent. Same size and weight as the others. */
+#qrBar button.qr-main{padding:7px 16px;
+  color:color-mix(in srgb,var(--text,#ddd) 55%,var(--accent,#2f9e8f) 45%);
+  background:color-mix(in srgb,var(--surface,#1e1e1e) 94%,var(--accent,#2f9e8f) 6%);
+  border:1px solid color-mix(in srgb,var(--border,#555) 70%,var(--accent,#2f9e8f) 30%);}
+#qrBar button.qr-main:hover{
+  background:color-mix(in srgb,var(--surface,#1e1e1e) 86%,var(--accent,#2f9e8f) 14%);
+  border-color:color-mix(in srgb,var(--border,#555) 40%,var(--accent,#2f9e8f) 60%);}
+
+/* Buttons keep their text above the fill layer. */
+#qrBar button{position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:manipulation;}
+#qrBar .qr-txt{position:relative;z-index:1;}
+/* C: light red fill, left to right. Duration is set from JS (hold_ms). */
+#qrBar .qr-fill{position:absolute;left:0;top:0;bottom:0;width:100%;z-index:0;pointer-events:none;
+  background:#f0a030;opacity:.8;transform:scaleX(0);transform-origin:left center;
+  transition-property:transform;transition-timing-function:linear;transition-duration:120ms;}
+#qrBar button.qr-holding .qr-fill,#qrBar button.qr-undoing .qr-fill{transform:scaleX(1);}
+#qrBar button.qr-holding .qr-txt,#qrBar button.qr-undoing .qr-txt{color:#fff;text-shadow:0 0 3px #000,0 0 2px #000;}
+
+/* Log viewer (opened by the Configure button) */
+#qrLogDlg{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);}
+#qrLogDlg .qr-log-card{width:min(900px,92vw);max-height:80vh;display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:10px;
+  background:var(--surface,#1a1a2e);border:1px solid var(--border,#444);color:var(--text,#ddd);}
+#qrLogDlg .qr-log-head{font-weight:600;}
+#qrLogDlg pre{margin:0;overflow:auto;flex:1;font-size:11px;line-height:1.35;white-space:pre;padding:8px;border-radius:6px;background:var(--bg,#0d0d1a);}
+#qrLogDlg .qr-log-btns{display:flex;gap:8px;justify-content:flex-end;}
+#qrLogDlg .qr-log-btns button{font:inherit;font-size:12px;padding:6px 14px;border-radius:6px;cursor:pointer;color:inherit;background:var(--surface,#1a1a2e);border:1px solid var(--border,#555);}
+
+/* Settings panel: 4 lines, name left, value right. Built by regroup() in quick-reply.js */
+.extension-settings-fields.qr-grouped{display:block;}
+.qr-rows{display:flex;flex-direction:column;gap:10px;}
+.qr-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;}
+.qr-item{display:inline-flex;flex-direction:row!important;align-items:center;gap:8px;margin:0;font-size:12px;font-weight:600;color:var(--text);cursor:help;}
+.qr-item .qr-name{white-space:nowrap;text-decoration:underline dotted;text-underline-offset:3px;text-decoration-color:var(--muted);}
+.qr-item input[type=text],.qr-item input[type=number],.qr-item select{min-height:30px;border:1px solid var(--border2);border-radius:7px;background:var(--bg);color:var(--text);padding:4px 8px;font-size:12px;cursor:text;}
+.qr-item select{cursor:pointer;min-width:120px;}
+.qr-item input[type=number]{width:72px;}
+.qr-item.qr-wide{flex:1 1 100%;}
+.qr-item.qr-wide input{flex:1 1 auto;min-width:0;}
+.qr-item.qr-dim{opacity:.7;}
+.qr-item.qr-dim .qr-name{color:var(--muted);}
+.qr-hint{margin-top:-4px;font-size:11px;line-height:1.4;color:var(--muted);}
+.qr-row .qr-showlog{margin-left:auto;flex:0 0 auto;width:auto;min-width:0;padding:6px 14px;white-space:nowrap;}
