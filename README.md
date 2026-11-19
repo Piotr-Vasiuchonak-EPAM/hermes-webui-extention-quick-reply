@@ -3,6 +3,13 @@
 Quick Reply is a trusted local Hermes WebUI extension. It adds one-click reply chips above the
 composer. Use it when the agent asks a question and your answer is one word: OK, Yes, Approved, Go.
 
+> **No model calls. No outbound requests.**
+> This extension never calls a model or any other server. It has no `fetch`, no `XMLHttpRequest`,
+> no WebSocket, no beacon, no remote files and no telemetry. Settings and log stay in your browser.
+>
+> A chip works like typing: it puts the chip text in the composer and presses the WebUI's own Send.
+> The WebUI then sends that one message as it does for any message. The extension adds nothing to it.
+
 ![OK chip above the composer](screenshots/01-ok-chip.png)
 
 ## What it does
@@ -128,6 +135,13 @@ What the script touches in the page:
 - In the settings card it moves the core input elements into 4 rows. See "Known limits".
 
 It does not load remote scripts, does not call `fetch` or `XMLHttpRequest`, and does not use `eval`.
+The only `navigator` call is the local clipboard copy in the log dialog (button **Copy**).
+
+To check this yourself, run this in the repository folder. It must print nothing:
+
+```bash
+grep -n -E "fetch\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|import\(|https?://" assets/*.js assets/*.css
+```
 
 ## Known limits
 
